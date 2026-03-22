@@ -43,7 +43,7 @@ export function Footer() {
               <li className="flex items-start gap-2">
                 <Phone size={18} className="flex-shrink-0 mt-1" />
                 <div>
-                  <a href="tel:7708425166" className="hover:text-white">7708425166</a>
+                  <a href="tel:7708425196" className="hover:text-white">7708425196</a>
                   <br />
                   <a href="tel:6379671637" className="hover:text-white">6379671637</a>
                 </div>
@@ -57,7 +57,7 @@ export function Footer() {
               <li className="flex items-start gap-2">
                 <Clock size={18} className="flex-shrink-0 mt-1" />
                 <span className="text-sm">
-                  Mon-Sat: 7:00 AM - 7:00 PM
+                  Mon-Fri: 7:00 AM - 7:00 PM
                 </span>
               </li>
             </ul>

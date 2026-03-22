@@ -10,7 +10,6 @@ export function Header() {
     { name: 'About Us', href: '#about' },
     { name: 'Programs', href: '#programs' },
     { name: 'Facilities', href: '#facilities' },
-    { name: 'Admissions', href: '#admissions' },
     { name: 'Contact', href: '#contact' },
   ];
 
