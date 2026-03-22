@@ -1,4 +1,3 @@
-import image_3d0921bf47e6482914fa2fbdad23221b6ec1829c from 'figma:asset/3d0921bf47e6482914fa2fbdad23221b6ec1829c.png'
 import { Heart, Shield, Users, Award } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
@@ -46,7 +45,7 @@ export function About() {
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
           <div>
             <ImageWithFallback
-              src={image_3d0921bf47e6482914fa2fbdad23221b6ec1829c}
+              src="/caregiver-with-children.jpg"
               alt="Smiling caregiver with children"
               className="w-full h-[400px] object-cover rounded-3xl shadow-xl"
             />
