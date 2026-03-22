@@ -43,8 +43,8 @@ export function Contact() {
                   </div>
                   <div>
                     <h4 className="font-bold text-gray-800 mb-1">Phone</h4>
-                    <a href="tel:7708425166" className="text-gray-600 hover:text-purple-600 block">
-                      7708425166
+                    <a href="tel:7708425196" className="text-gray-600 hover:text-purple-600 block">
+                      7708425196
                     </a>
                     <a href="tel:6379671637" className="text-gray-600 hover:text-purple-600 block">
                       6379671637
@@ -64,25 +64,14 @@ export function Contact() {
                   </div>
                 </div>
 
-                {/* Email */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                    <Mail className="text-yellow-600" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-800 mb-1">Email</h4>
-                    <a href="mailto:info@loveandcaredaycare.com" className="text-gray-600 hover:text-purple-600">
-                      info@loveandcaredaycare.com
-                    </a>
-                  </div>
-                </div>
+
               </div>
             </div>
 
             {/* Call to Action Buttons */}
             <div className="space-y-4">
               <a
-                href="tel:7708425166"
+                href="tel:7708425196"
                 className="block w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-4 rounded-full text-lg font-semibold text-center hover:shadow-xl transition-all transform hover:scale-105"
               >
                 Call Now to Enroll

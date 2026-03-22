@@ -45,8 +45,8 @@ export function About() {
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
           <div>
             <ImageWithFallback
-              src="/caregiver-with-children.jpg"
-              alt="Smiling caregiver with children"
+              src="/dr-narmatha.jpg"
+              alt="Dr. M. Narmatha, Founder of Love and Care Day Care"
               className="w-full h-[400px] object-cover rounded-3xl shadow-xl"
             />
           </div>

@@ -43,7 +43,7 @@ export function Footer() {
               <li className="flex items-start gap-2">
                 <Phone size={18} className="flex-shrink-0 mt-1" />
                 <div>
-                  <a href="tel:7708425166" className="hover:text-white">7708425166</a>
+                  <a href="tel:7708425196" className="hover:text-white">7708425196</a>
                   <br />
                   <a href="tel:6379671637" className="hover:text-white">6379671637</a>
                 </div>
