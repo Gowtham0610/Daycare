@@ -59,7 +59,7 @@ export function Contact() {
                   </div>
                   <div>
                     <h4 className="font-bold text-gray-800 mb-1">Operating Hours</h4>
-                    <p className="text-gray-600">Monday - Saturday</p>
+                    <p className="text-gray-600">Monday - Friday</p>
                     <p className="text-gray-600 font-semibold">7:00 AM - 7:00 PM</p>
                   </div>
                 </div>
