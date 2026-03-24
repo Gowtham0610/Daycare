@@ -26,16 +26,6 @@ https://loveandcare.org.in/
 
 ---
 
-## 📁 Project Structure
-
-src/
-├── components/ # Reusable components
-├── sections/ # Page sections (Hero, About, etc.)
-├── assets/ # Images and static files
-├── styles/ # Global styles
-├── App.jsx
-└── main.jsx
-
 
 
 ## 👤 Author
