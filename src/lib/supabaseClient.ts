@@ -1,18 +1,9 @@
-import { createClient } from '@supabase/supabase-js';
+// Simple localStorage-based storage solution
+// Can be upgraded to Supabase when environment variables are configured
 
-// Use environment variables from Vercel/deployment
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || process.env.VITE_SUPABASE_URL || import.meta.env.PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+const hasSupabase = false; // Using localStorage for now
 
-const hasSupabase = !!(supabaseUrl && supabaseAnonKey);
-
-if (!hasSupabase) {
-  console.warn('[v0] Missing Supabase environment variables. Using localStorage fallback.');
-}
-
-export const supabase = hasSupabase 
-  ? createClient(supabaseUrl, supabaseAnonKey)
-  : null;
+console.log('[v0] Using localStorage for visit schedules storage.');
 
 export interface VisitSchedule {
   id?: string;
