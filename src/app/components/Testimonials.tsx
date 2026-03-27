@@ -17,6 +17,20 @@ export function Testimonials() {
       text: "Finding a trustworthy daycare was my biggest worry as a working mom. Love and Care exceeded all my expectations. The communication is great, and I always feel my kids are in safe hands.",
       color: 'purple',
     },
+    {
+      name: 'Balaji Manoharan',
+      role: 'Father of 1',
+      rating: 5,
+      text: "Dr. M. Narmatha has sufficient experience of working with kids and can impart excellent care to them. Good day care taken by the owner.",
+      color: 'pink',
+    },
+    {
+      name: 'Ram Kumar',
+      role: 'Father of 1',
+      rating: 5,
+      text: "My child was very shy earlier and rarely spoke, even at home with me or my wife. After joining this daycare, we have seen a remarkable improvement. He is now more confident and communicates much more freely. Special thanks to Dr. M. Narmatha for her dedication and for helping my child overcome his shyness.",
+      color: 'purple',
+    },
   ];
 
   return (
@@ -34,7 +48,7 @@ export function Testimonials() {
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
