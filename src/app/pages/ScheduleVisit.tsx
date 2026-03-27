@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ArrowLeft, Calendar, User, Phone, Mail, Clock, MessageSquare } from 'lucide-react';
+import { addVisitSchedule } from '../../lib/supabaseClient';
 
 export function ScheduleVisit() {
   const navigate = useNavigate();
@@ -14,26 +15,33 @@ export function ScheduleVisit() {
     preferredTime: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    // Get existing submissions from localStorage
-    const existingSubmissions = JSON.parse(localStorage.getItem('visitSchedules') || '[]');
+    try {
+      // Submit to Supabase
+      await addVisitSchedule({
+        parent_name: formData.parentName,
+        parent_phone: formData.phone,
+        child_name: formData.childName,
+        child_age: parseInt(formData.childAge),
+        preferred_date: formData.preferredDate,
+        preferred_time: formData.preferredTime,
+        message: formData.message,
+      });
 
-    // Add new submission with timestamp
-    const newSubmission = {
-      ...formData,
-      id: Date.now(),
-      submittedAt: new Date().toISOString()
-    };
-
-    existingSubmissions.push(newSubmission);
-    localStorage.setItem('visitSchedules', JSON.stringify(existingSubmissions));
-
-    // Show success message and redirect
-    alert('Thank you! Your visit has been scheduled. We will contact you shortly to confirm.');
-    navigate('/');
+      // Show success message and redirect
+      alert('Thank you! Your visit has been scheduled. We will contact you shortly to confirm.');
+      navigate('/');
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('An error occurred while scheduling your visit. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -223,9 +231,10 @@ export function ScheduleVisit() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transition-all transform hover:scale-105"
+              disabled={isSubmitting}
+              className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Schedule Visit
+              {isSubmitting ? 'Scheduling...' : 'Schedule Visit'}
             </button>
           </form>
         </div>
