@@ -1,19 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { Lock, LogOut, Calendar, User, Phone, Mail, Clock, MessageSquare, Trash2 } from 'lucide-react';
+import { getVisitSchedules, deleteVisitSchedule } from '../../lib/supabaseClient';
+import type { VisitSchedule } from '../../lib/supabaseClient';
 
-interface VisitSchedule {
-  id: number;
-  parentName: string;
-  childName: string;
-  childAge: string;
-  email: string;
-  phone: string;
-  preferredDate: string;
-  preferredTime: string;
-  message: string;
-  submittedAt: string;
-}
+
 
 export function AdminPortal() {
   const navigate = useNavigate();
@@ -34,13 +25,14 @@ export function AdminPortal() {
     }
   }, []);
 
-  const loadSchedules = () => {
-    const savedSchedules = JSON.parse(localStorage.getItem('visitSchedules') || '[]');
-    // Sort by most recent first
-    savedSchedules.sort((a: VisitSchedule, b: VisitSchedule) =>
-      new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime()
-    );
-    setSchedules(savedSchedules);
+  const loadSchedules = async () => {
+    try {
+      const data = await getVisitSchedules();
+      setSchedules(data as any[]);
+    } catch (error) {
+      console.error('Error loading schedules:', error);
+      setSchedules([]);
+    }
   };
 
   const handleLogin = (e: React.FormEvent) => {
@@ -62,11 +54,16 @@ export function AdminPortal() {
     navigate('/');
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = async (id: string | number) => {
     if (confirm('Are you sure you want to delete this schedule?')) {
-      const updatedSchedules = schedules.filter(schedule => schedule.id !== id);
-      localStorage.setItem('visitSchedules', JSON.stringify(updatedSchedules));
-      setSchedules(updatedSchedules);
+      try {
+        await deleteVisitSchedule(String(id));
+        const updatedSchedules = schedules.filter(schedule => schedule.id !== id);
+        setSchedules(updatedSchedules);
+      } catch (error) {
+        console.error('Error deleting schedule:', error);
+        alert('Failed to delete schedule. Please try again.');
+      }
     }
   };
 
@@ -181,10 +178,10 @@ export function AdminPortal() {
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h3 className="text-xl font-bold text-gray-800 mb-1">
-                      {schedule.parentName}
+                      {schedule.parent_name}
                     </h3>
                     <p className="text-sm text-gray-500">
-                      Submitted: {formatDateTime(schedule.submittedAt)}
+                      Submitted: {formatDateTime(schedule.created_at || new Date().toISOString())}
                     </p>
                   </div>
                   <button
@@ -201,7 +198,7 @@ export function AdminPortal() {
                     <User className="text-pink-500 flex-shrink-0 mt-1" size={20} />
                     <div>
                       <p className="text-sm font-semibold text-gray-700">Child's Name</p>
-                      <p className="text-gray-600">{schedule.childName} ({schedule.childAge} years old)</p>
+                      <p className="text-gray-600">{schedule.child_name} ({schedule.child_age} years old)</p>
                     </div>
                   </div>
 
@@ -209,9 +206,7 @@ export function AdminPortal() {
                     <Mail className="text-purple-500 flex-shrink-0 mt-1" size={20} />
                     <div>
                       <p className="text-sm font-semibold text-gray-700">Email</p>
-                      <a href={`mailto:${schedule.email}`} className="text-gray-600 hover:text-purple-600">
-                        {schedule.email}
-                      </a>
+                      <p className="text-gray-600">Not stored</p>
                     </div>
                   </div>
 
@@ -219,8 +214,8 @@ export function AdminPortal() {
                     <Phone className="text-sky-500 flex-shrink-0 mt-1" size={20} />
                     <div>
                       <p className="text-sm font-semibold text-gray-700">Phone</p>
-                      <a href={`tel:${schedule.phone}`} className="text-gray-600 hover:text-purple-600">
-                        {schedule.phone}
+                      <a href={`tel:${schedule.parent_phone}`} className="text-gray-600 hover:text-purple-600">
+                        {schedule.parent_phone}
                       </a>
                     </div>
                   </div>
@@ -229,7 +224,7 @@ export function AdminPortal() {
                     <Calendar className="text-yellow-500 flex-shrink-0 mt-1" size={20} />
                     <div>
                       <p className="text-sm font-semibold text-gray-700">Preferred Date</p>
-                      <p className="text-gray-600">{formatDate(schedule.preferredDate)}</p>
+                      <p className="text-gray-600">{formatDate(schedule.preferred_date)}</p>
                     </div>
                   </div>
 
@@ -237,7 +232,7 @@ export function AdminPortal() {
                     <Clock className="text-green-500 flex-shrink-0 mt-1" size={20} />
                     <div>
                       <p className="text-sm font-semibold text-gray-700">Preferred Time</p>
-                      <p className="text-gray-600">{schedule.preferredTime}</p>
+                      <p className="text-gray-600">{schedule.preferred_time}</p>
                     </div>
                   </div>
 
@@ -246,7 +241,16 @@ export function AdminPortal() {
                       <MessageSquare className="text-purple-500 flex-shrink-0 mt-1" size={20} />
                       <div>
                         <p className="text-sm font-semibold text-gray-700">Message</p>
-                        <p className="text-gray-600">{schedule.message}</p>
+                        <p className="text-gray-600">{schedule.message || 'No message'}</p>
+                      </div>
+                    </div>
+                  )}
+                  {!schedule.message && (
+                    <div className="flex items-start gap-3 md:col-span-2">
+                      <MessageSquare className="text-purple-500 flex-shrink-0 mt-1" size={20} />
+                      <div>
+                        <p className="text-sm font-semibold text-gray-700">Message</p>
+                        <p className="text-gray-500 italic">No message provided</p>
                       </div>
                     </div>
                   )}
