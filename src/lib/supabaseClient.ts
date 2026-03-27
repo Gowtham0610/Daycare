@@ -4,14 +4,15 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || process.env.VITE_SUPABASE_URL || import.meta.env.PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('Missing Supabase environment variables. Using fallback.');
+const hasSupabase = !!(supabaseUrl && supabaseAnonKey);
+
+if (!hasSupabase) {
+  console.warn('[v0] Missing Supabase environment variables. Using localStorage fallback.');
 }
 
-export const supabase = createClient(
-  supabaseUrl || '',
-  supabaseAnonKey || ''
-);
+export const supabase = hasSupabase 
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null;
 
 export interface VisitSchedule {
   id?: string;
@@ -25,30 +26,23 @@ export interface VisitSchedule {
   created_at?: string;
 }
 
-// Create the table if it doesn't exist
-export const initializeTable = async () => {
-  try {
-    // Check if table exists by trying to query it
-    const { error } = await supabase
-      .from('visit_schedules')
-      .select('id')
-      .limit(1);
 
-    if (error && error.code === 'PGRST116') {
-      // Table doesn't exist, create it
-      console.log('Creating visit_schedules table...');
-      const { error: createError } = await supabase.rpc('create_visits_table_if_not_exists');
-      
-      if (createError) {
-        console.warn('Could not create table via RPC, will use direct insert which will fail gracefully:', createError);
-      }
-    }
-  } catch (error) {
-    console.error('Error initializing table:', error);
-  }
-};
 
 export const addVisitSchedule = async (visit: VisitSchedule) => {
+  // Use localStorage as fallback if Supabase is not available
+  if (!hasSupabase || !supabase) {
+    const existingSubmissions = JSON.parse(localStorage.getItem('visitSchedules') || '[]');
+    const newSubmission = {
+      ...visit,
+      id: Date.now().toString(),
+      created_at: new Date().toISOString(),
+    };
+    existingSubmissions.push(newSubmission);
+    localStorage.setItem('visitSchedules', JSON.stringify(existingSubmissions));
+    console.log('[v0] Visit scheduled (localStorage):', newSubmission);
+    return [newSubmission];
+  }
+
   try {
     const { data, error } = await supabase
       .from('visit_schedules')
@@ -67,18 +61,30 @@ export const addVisitSchedule = async (visit: VisitSchedule) => {
       .select();
 
     if (error) {
-      console.error('Error adding visit schedule:', error);
+      console.error('[v0] Error adding visit schedule to Supabase:', error);
       throw error;
     }
 
+    console.log('[v0] Visit scheduled (Supabase):', data);
     return data;
   } catch (error) {
-    console.error('Failed to add visit schedule:', error);
+    console.error('[v0] Failed to add visit schedule:', error);
     throw error;
   }
 };
 
 export const getVisitSchedules = async () => {
+  // Use localStorage as fallback if Supabase is not available
+  if (!hasSupabase || !supabase) {
+    const schedules = JSON.parse(localStorage.getItem('visitSchedules') || '[]');
+    // Sort by most recent first
+    schedules.sort((a: any, b: any) => 
+      new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime()
+    );
+    console.log('[v0] Fetched schedules (localStorage):', schedules);
+    return schedules;
+  }
+
   try {
     const { data, error } = await supabase
       .from('visit_schedules')
@@ -86,18 +92,28 @@ export const getVisitSchedules = async () => {
       .order('created_at', { ascending: false });
 
     if (error) {
-      console.error('Error fetching visit schedules:', error);
+      console.error('[v0] Error fetching visit schedules:', error);
       return [];
     }
 
+    console.log('[v0] Fetched schedules (Supabase):', data);
     return data || [];
   } catch (error) {
-    console.error('Failed to fetch visit schedules:', error);
+    console.error('[v0] Failed to fetch visit schedules:', error);
     return [];
   }
 };
 
 export const deleteVisitSchedule = async (id: string) => {
+  // Use localStorage as fallback if Supabase is not available
+  if (!hasSupabase || !supabase) {
+    const schedules = JSON.parse(localStorage.getItem('visitSchedules') || '[]');
+    const filtered = schedules.filter((s: any) => String(s.id) !== String(id));
+    localStorage.setItem('visitSchedules', JSON.stringify(filtered));
+    console.log('[v0] Schedule deleted (localStorage):', id);
+    return true;
+  }
+
   try {
     const { error } = await supabase
       .from('visit_schedules')
@@ -105,13 +121,14 @@ export const deleteVisitSchedule = async (id: string) => {
       .eq('id', id);
 
     if (error) {
-      console.error('Error deleting visit schedule:', error);
+      console.error('[v0] Error deleting visit schedule:', error);
       throw error;
     }
 
+    console.log('[v0] Schedule deleted (Supabase):', id);
     return true;
   } catch (error) {
-    console.error('Failed to delete visit schedule:', error);
+    console.error('[v0] Failed to delete visit schedule:', error);
     throw error;
   }
 };
