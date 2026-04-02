@@ -1,9 +1,19 @@
-// Simple localStorage-based storage solution
-// Can be upgraded to Supabase when environment variables are configured
+import { createClient } from '@supabase/supabase-js';
 
-const hasSupabase = false; // Using localStorage for now
+// Initialize Supabase client with environment variables
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-console.log('[v0] Using localStorage for visit schedules storage.');
+let supabase: any = null;
+let hasSupabase = false;
+
+if (supabaseUrl && supabaseAnonKey) {
+  supabase = createClient(supabaseUrl, supabaseAnonKey);
+  hasSupabase = true;
+  console.log('[v0] Supabase initialized successfully');
+} else {
+  console.log('[v0] Supabase credentials not found. Check environment variables: VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY');
+}
 
 export interface VisitSchedule {
   id?: string;
