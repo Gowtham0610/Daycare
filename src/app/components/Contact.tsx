@@ -1,4 +1,4 @@
-import { MapPin, Phone, Clock, Mail } from 'lucide-react';
+import { MapPin, Phone, Clock, Mail, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router';
 
 export function Contact() {
@@ -64,12 +64,32 @@ export function Contact() {
                   </div>
                 </div>
 
+                {/* WhatsApp */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                    <MessageCircle className="text-green-600" size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-800 mb-1">WhatsApp</h4>
+                    <a href="https://wa.me/917708425196" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-green-600 block">
+                      +91 7708 425 196
+                    </a>
+                  </div>
+                </div>
 
               </div>
             </div>
 
             {/* Call to Action Buttons */}
             <div className="space-y-4">
+              <a
+                href="https://wa.me/917708425196"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full bg-gradient-to-r from-green-500 to-teal-500 text-white px-8 py-4 rounded-full text-lg font-semibold text-center hover:shadow-xl transition-all transform hover:scale-105"
+              >
+                Chat on WhatsApp
+              </a>
               <a
                 href="tel:7708425196"
                 className="block w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-4 rounded-full text-lg font-semibold text-center hover:shadow-xl transition-all transform hover:scale-105"

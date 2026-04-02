@@ -24,12 +24,12 @@ export function Hero() {
             </p>
             <p className="text-lg text-gray-600 mb-10 leading-relaxed">A safe, joyful place where children grow, learn, and thrive. We provide exceptional care for ages 3-10 with experienced caregiver who treat every child like family.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-              <Link
-                to="/schedule-visit"
-                className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transition-all transform hover:scale-105"
+              <a
+                href="#contact"
+                className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transition-all transform hover:scale-105 text-center"
               >
-                Enroll Now
-              </Link>
+                Contact Us
+              </a>
               <Link
                 to="/schedule-visit"
                 className="bg-white text-purple-600 border-2 border-purple-500 px-8 py-4 rounded-full text-lg font-semibold hover:bg-purple-50 transition-all transform hover:scale-105"
