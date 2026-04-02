@@ -1,9 +1,45 @@
-// Simple localStorage-based storage solution
-// Can be upgraded to Supabase when environment variables are configured
+// Initialize Supabase client with environment variables
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-const hasSupabase = false; // Using localStorage for now
+let supabase: any = null;
+let hasSupabase = false;
+let initPromise: Promise<boolean> | null = null;
 
-console.log('[v0] Using localStorage for visit schedules storage.');
+// Dynamically import Supabase when available
+const initSupabase = async (): Promise<boolean> => {
+  // Return cached promise if already initializing
+  if (initPromise) {
+    return initPromise;
+  }
+
+  initPromise = (async () => {
+    if (supabaseUrl && supabaseAnonKey) {
+      try {
+        const { createClient } = await import('@supabase/supabase-js');
+        supabase = createClient(supabaseUrl, supabaseAnonKey);
+        hasSupabase = true;
+        console.log('[v0] Supabase initialized successfully');
+        return true;
+      } catch (error) {
+        console.log('[v0] Supabase package not available, using localStorage fallback');
+        hasSupabase = false;
+        return false;
+      }
+    } else {
+      console.log('[v0] Supabase credentials not found');
+      hasSupabase = false;
+      return false;
+    }
+  })();
+
+  return initPromise;
+};
+
+// Initialize on load (non-blocking)
+initSupabase().catch(() => {
+  // Silent catch - fallback to localStorage
+});
 
 export interface VisitSchedule {
   id?: string;
@@ -20,6 +56,14 @@ export interface VisitSchedule {
 
 
 export const addVisitSchedule = async (visit: VisitSchedule) => {
+  // Ensure Supabase is initialized
+  if (!hasSupabase && supabase === null) {
+    const initialized = await initSupabase();
+    if (!initialized) {
+      console.log('[v0] Supabase not available, will use localStorage');
+    }
+  }
+
   // Use localStorage as fallback if Supabase is not available
   if (!hasSupabase || !supabase) {
     const existingSubmissions = JSON.parse(localStorage.getItem('visitSchedules') || '[]');
@@ -65,6 +109,14 @@ export const addVisitSchedule = async (visit: VisitSchedule) => {
 };
 
 export const getVisitSchedules = async () => {
+  // Ensure Supabase is initialized
+  if (!hasSupabase && supabase === null) {
+    const initialized = await initSupabase();
+    if (!initialized) {
+      console.log('[v0] Supabase not available, using localStorage');
+    }
+  }
+
   // Use localStorage as fallback if Supabase is not available
   if (!hasSupabase || !supabase) {
     const schedules = JSON.parse(localStorage.getItem('visitSchedules') || '[]');
@@ -84,7 +136,12 @@ export const getVisitSchedules = async () => {
 
     if (error) {
       console.error('[v0] Error fetching visit schedules:', error);
-      return [];
+      // Fall back to localStorage if table doesn't exist
+      const schedules = JSON.parse(localStorage.getItem('visitSchedules') || '[]');
+      schedules.sort((a: any, b: any) => 
+        new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime()
+      );
+      return schedules;
     }
 
     console.log('[v0] Fetched schedules (Supabase):', data);
@@ -96,6 +153,14 @@ export const getVisitSchedules = async () => {
 };
 
 export const deleteVisitSchedule = async (id: string) => {
+  // Ensure Supabase is initialized
+  if (!hasSupabase && supabase === null) {
+    const initialized = await initSupabase();
+    if (!initialized) {
+      console.log('[v0] Supabase not available, using localStorage');
+    }
+  }
+
   // Use localStorage as fallback if Supabase is not available
   if (!hasSupabase || !supabase) {
     const schedules = JSON.parse(localStorage.getItem('visitSchedules') || '[]');
