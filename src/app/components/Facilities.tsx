@@ -7,14 +7,14 @@ export function Facilities() {
       icon: Blocks,
       title: 'Play & Activity Area',
       description: 'A cozy play space where children can enjoy toys, games, and fun activities while interacting and making friends.',
-      image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_ed3c1ted3c1ted3c-8lGxbKt1eDdlp0ZkerqCg5OX2fJ3OW.png',
+      image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_5jdiho5jdiho5jdi-s37oAGJa5wqdyiouHw66mwD8vgGR0G.png',
       color: 'yellow',
     },
     {
       icon: BookOpen,
       title: 'Homework & Quiet Time',
       description: 'A calm corner where children can complete homework, read, or enjoy quiet activities with guidance when needed.',
-      image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_2f4lc62f4lc62f4l-zCk7uUhRWAq9MV72W7QkwlXXKuibMa.png',
+      image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_9ru6sq9ru6sq9ru6-xYpqoU7NcJkrfY82RLjOCbhcGhH9y7.png',
       color: 'pink',
     },
     {
