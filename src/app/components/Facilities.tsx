@@ -7,14 +7,14 @@ export function Facilities() {
       icon: Blocks,
       title: 'Play & Activity Area',
       description: 'A cozy play space where children can enjoy toys, games, and fun activities while interacting and making friends.',
-      image: 'https://images.unsplash.com/photo-1654932330535-7e07af04b685?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBjaGlsZHJlbiUyMHRveXMlMjBjb2xvcmZ1bCUyMGJsb2Nrc3xlbnwxfHx8fDE3NzM1OTY0NDB8MA&ixlib=rb-4.1.0&q=80&w=1080',
+      image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_ed3c1ted3c1ted3c-8lGxbKt1eDdlp0ZkerqCg5OX2fJ3OW.png',
       color: 'yellow',
     },
     {
       icon: BookOpen,
       title: 'Homework & Quiet Time',
       description: 'A calm corner where children can complete homework, read, or enjoy quiet activities with guidance when needed.',
-      image: 'https://images.unsplash.com/photo-1719159381916-062fa9f435a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwzfHxpbmRpYW4lMjBraWRzJTIwc2Nob29sJTIwY2xhc3Nyb29tJTIwc3R1ZHlpbmd8ZW58MXx8fHwxNzczNTk2NDE5fDA&ixlib=rb-4.1.0&q=80&w=1080',
+      image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_2f4lc62f4lc62f4l-zCk7uUhRWAq9MV72W7QkwlXXKuibMa.png',
       color: 'pink',
     },
     {
@@ -56,11 +56,11 @@ export function Facilities() {
                 key={index}
                 className="bg-gradient-to-br from-gray-50 to-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2"
               >
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative h-64 overflow-hidden bg-gray-100 flex items-center justify-center">
                   <ImageWithFallback
                     src={facility.image}
                     alt={facility.title}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                    className="w-full h-full object-contain transition-transform duration-300 hover:scale-105"
                   />
                   <div className={`absolute top-4 left-4 bg-${facility.color}-400 p-4 rounded-2xl shadow-lg`}>
                     <Icon className="text-white" size={32} />
