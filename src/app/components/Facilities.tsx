@@ -56,11 +56,11 @@ export function Facilities() {
                 key={index}
                 className="bg-gradient-to-br from-gray-50 to-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2"
               >
-                <div className="relative h-64 overflow-hidden bg-gray-100 flex items-center justify-center">
+                <div className="relative h-64 overflow-hidden bg-gray-100">
                   <ImageWithFallback
                     src={facility.image}
                     alt={facility.title}
-                    className="w-full h-full object-contain transition-transform duration-300 hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                   />
                   <div className={`absolute top-4 left-4 bg-${facility.color}-400 p-4 rounded-2xl shadow-lg`}>
                     <Icon className="text-white" size={32} />
