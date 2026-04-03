@@ -21,14 +21,14 @@ export function Facilities() {
       icon: Bed,
       title: 'Nap & Rest Area',
       description: 'A comfortable space where children can relax and take their afternoon nap after lunch.',
-      image: 'https://images.unsplash.com/photo-1692269725836-fbd72e98883f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyfHxjaGlsZHJlbiUyMHNsZWVwaW5nJTIwaW5kaWElMjBzY2hvb2wlMjBuYXB8ZW58MXx8fHwxNzczNTk2NDE5fDA&ixlib=rb-4.1.0&q=80&w=1080',
+      image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_24kxqu24kxqu24kx-XjVYxzgAWw9J4Zf48PmAcFOc97ziWS.png',
       color: 'sky',
     },
     {
       icon: Utensils,
       title: 'Meal & Snack Area',
       description: 'A clean and friendly dining space where children enjoy their lunch and snacks together.',
-      image: 'https://images.unsplash.com/photo-1771091052812-aaf64b9bfdee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBzY2hvb2wlMjBjaGlsZHJlbiUyMGVhdGluZyUyMHRvZ2V0aGVyfGVufDF8fHx8MTc3MzU5NjQzMXww&ixlib=rb-4.1.0&q=80&w=1080',
+      image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_3rrk3p3rrk3p3rrk%20%281%29-XOmjLfXqsFCNPIFFlzmbtrmiKeeWP3.png',
       color: 'purple',
     },
   ];
