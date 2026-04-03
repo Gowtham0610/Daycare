@@ -43,7 +43,7 @@ export function Hero() {
           <div className="relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-300">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1587616211892-f743fcca64f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYXBweSUyMGNoaWxkcmVuJTIwcGxheWluZyUyMGRheWNhcmV8ZW58MXx8fHwxNzcwNzA0MjUwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_mxnfn7mxnfn7mxnf-pkDFKqgCEqJzsMTe2xockbbXLTvDdf.png"
                 alt="Happy children playing at daycare"
                 className="w-full h-[400px] sm:h-[500px] object-cover"
               />
