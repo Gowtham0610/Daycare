@@ -45,7 +45,7 @@ export function About() {
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
           <div>
             <ImageWithFallback
-              src="/dr-narmatha.jpg"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_fz2oigfz2oigfz2o-L3zX2q0rY5wbo0ZV61yHTJSSlCYTat.png"
               alt="Dr. M. Narmatha, Founder of Love and Care Day Care"
               className="w-full h-[400px] object-cover rounded-3xl shadow-xl"
             />
